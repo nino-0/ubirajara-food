@@ -1,13 +1,13 @@
-import { Trash } from "lucide-react";
-import img2 from '../assets/img2.jpg';
+import { SquareMinus, SquarePlus, Trash } from "lucide-react";
 
-function ListElement({ name, price, is_check }) {
+function ListElement({ id,name, price,total, is_check,img_url,removeFromCart,updateQuantity }) {
+  
   return (
-    <div className="flex flex-row gap-1  py-4 text-black bg-white">
+    <div className="flex flex-row gap-1  py-4 px-4 text-black bg-white">
       <input type="checkbox" className="max-w-[20px] max-h-[20px]  " checked={is_check}  />
 
       <img
-        src={img2}
+        src={new URL(`../assets/${img_url}`, import.meta.url).href}
         alt="Imagem do doce de leite em cubos"
         className="max-w-[84px] max-h-[84px] w-full h-auto object-contain "
       />
@@ -19,17 +19,38 @@ function ListElement({ name, price, is_check }) {
               ? name.slice(0, 29) + "..."
               : name}
           </span>
-          <Trash />
+          <button 
+            onClick={()=>{removeFromCart(id)}}
+            className=''
+            aria-label="Curtir"
+            >
+            <Trash   />
+           </button>
+          
+        </div>
+        <div className="flex flex-row justify-between ">
+          <div className="flex flex-row items-center gap-2">
+            <button 
+            onClick={()=>{updateQuantity(id,total-1)}} 
+            className=''
+            aria-label="Curtir"
+            >
+            <SquareMinus />
+           </button>
+            <span>{total}</span>
+            <button 
+            onClick={()=>{updateQuantity(id,total+1)}} 
+            className=''
+            aria-label="Curtir"
+            >
+            <SquarePlus />
+           </button>
+          </div>
+            
+          <span className="font-bold text-xl ">{"R$ "+ (total*price).toFixed(2)}</span>
         </div>
 
-        <div className="flex flex-row justify-between ">
-          <select name="cores" id="cores" className="shadow-xl">
-            <option value="1">1 un.</option>
-            <option value="2">2 un.</option>
-            <option value="3">3 un.</option>
-          </select>
-          <span className="font-bold text-xl ">{"R$ "+ price}</span>
-        </div>
+
       </div>
     </div>
   );

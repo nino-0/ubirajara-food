@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import api from "../network/api";
 
 import NavBar from "../components/NavBar";
+import { useCart } from "../contexts/CartContext";
 
 function Main() {
-  const [totalItemsHandBag, setTotalItemsHandBag] = useState(0);
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const { addToCart,totalItems } = useCart();
 
   useEffect(() => {
     api
@@ -26,22 +26,9 @@ function Main() {
       return acc;
     }, {});
 
-    if(verifyObjArr(cart,id)){
-      const updated_cart = cart.map(item => {
-        if (item.id === id) {
-          return { ...item, total:item.total+amount }; // Cria uma cópia do objeto com a propriedade alterada
-        }
-        return item;
-      });
-      setCart(updated_cart)
-      return
-    }
+    addToCart({...item,total:amount,is_check: true})
 
-    cart.push({...item,total:amount})
     
-  }
-  function verifyObjArr(arr, id) {
-    return arr.find(objeto => objeto.id === id);   
   }
   
   return (
@@ -57,15 +44,13 @@ function Main() {
               name={item.name}
               price={item.price}
               img_url={item.img_url}         
-              totalItemsHandBag={totalItemsHandBag}
-              setTotalItemsHandBag={setTotalItemsHandBag}
               putOnCart={putOnCart}
             />
           )) : <></>}
         </section>
       </div>
 
-      <NavBar totalItemsHandBag={totalItemsHandBag} />
+      <NavBar totalItemsHandBag={totalItems} />
     </div>
   );
 }

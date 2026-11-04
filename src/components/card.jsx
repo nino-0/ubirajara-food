@@ -2,8 +2,8 @@ import { useState } from "react";
 // import img1 from '../assets/img1.jpg';
 import { Handbag, SquareMinus, SquarePlus } from "lucide-react";
 
-function Card({id,totalItemsHandBag,setTotalItemsHandBag,name,price,img_url,putOnCart}) {
-  const [count, setCount] = useState(0);
+function Card({id,name,price,img_url,putOnCart}) {
+  const [count, setCount] = useState(1);
    const addOnBag = () => {
     setCount(count+1)
   }
@@ -16,9 +16,8 @@ function Card({id,totalItemsHandBag,setTotalItemsHandBag,name,price,img_url,putO
   const addToCart = ()=> {
     if(count === 0){
       return
-    }
-    setTotalItemsHandBag(totalItemsHandBag+count)
-    setCount(0)
+    }    
+    setCount(1)
     putOnCart(id,count)
   }
 
