@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import img1 from '../assets/img1.jpg';
 import { Handbag, SquareMinus, SquarePlus } from "lucide-react";
+import {formatBR} from "../utils/formats"
 
 function Card({id,name,price,img_url,putOnCart}) {
   const [count, setCount] = useState(1);
@@ -22,12 +23,12 @@ function Card({id,name,price,img_url,putOnCart}) {
   }
 
   return (
-    <div id="card" className="flex flex-col items-center gap-3  shadow-xl/20 rounded-lg  bg-white px-2 py-3  ">
+    <div id="card" className="flex flex-col items-center gap-3  shadow-xl/20 rounded-lg  bg-white px-2 py-3 text-black ">
         <img src={new URL(`../assets/${img_url}`, import.meta.url).href} className="max-w-[112px] max-h-[112px] w-full h-auto object-contain " alt="img" />
         <span className="self-start w-full ">{name}</span>
         <div id="priceAndAmount" className="flex flex-row justify-between  gap-4  items-center">
 
-          <span  className="text-xl">R$ {price.toFixed(2)}</span>
+          <span  className="text-xl color"> {formatBR(price.toFixed(2))}</span>
 
           <div className="flex flex-row gap-1">
             

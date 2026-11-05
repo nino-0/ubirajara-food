@@ -1,10 +1,25 @@
 import { SquareMinus, SquarePlus, Trash } from "lucide-react";
+import BRLabel from "./BrLabel";
 
-function ListElement({ id,name, price,total, is_check,img_url,removeFromCart,updateQuantity }) {
+function ListElement({ id,name, price,total, is_check,img_url,removeFromCart,updateQuantity,updateSelected }) {
+  const handleDelete = () => {
+    // Abre a caixa de diálogo nativa do navegador
+    const isConfirmed = window.confirm(
+      "Tem certeza que deseja remover esse item da sacola? Essa ação não poderá ser desfeita."
+    );
+
+    if (isConfirmed) {
+      console.log(`Executando exclusão do ID: ${id}`);
+      removeFromCart(id)
+    } else {
+      // Se clicar em "Cancelar", retorna false
+      console.log("Ação cancelada pelo usuário.");
+    }
+  };
   
   return (
     <div className="flex flex-row gap-1  py-4 px-4 text-black bg-white">
-      <input type="checkbox" className="max-w-[20px] max-h-[20px]  " checked={is_check}  />
+      <input type="checkbox" className="max-w-[20px] max-h-[20px]  " checked={is_check} onClick={()=>{updateSelected(id)}}  />
 
       <img
         src={new URL(`../assets/${img_url}`, import.meta.url).href}
@@ -20,7 +35,9 @@ function ListElement({ id,name, price,total, is_check,img_url,removeFromCart,upd
               : name}
           </span>
           <button 
-            onClick={()=>{removeFromCart(id)}}
+            onClick={()=>{ 
+              handleDelete()
+            }}
             className=''
             aria-label="Curtir"
             >
@@ -46,8 +63,8 @@ function ListElement({ id,name, price,total, is_check,img_url,removeFromCart,upd
             <SquarePlus />
            </button>
           </div>
-            
-          <span className="font-bold text-xl ">{"R$ "+ (total*price).toFixed(2)}</span>
+          <BRLabel value={(total*price).toFixed(2)} />
+          {/* <span className="font-bold text-xl ">{"R$ "+ (total*price).toFixed(2)}</span> */}
         </div>
 
 

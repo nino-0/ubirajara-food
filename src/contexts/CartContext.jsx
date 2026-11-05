@@ -58,6 +58,16 @@ export function CartProvider({ children }) {
       )
     );
   }
+  function updateSelected(productId) {
+
+    setCart((currentCart) =>
+      currentCart.map((item) =>
+        item.id === productId
+          ? { ...item, is_check:!item.is_check }
+          : item
+      )
+    );
+  }
 
   // Esvazia o carrinho
   function clearCart() {
@@ -76,6 +86,13 @@ export function CartProvider({ children }) {
     0
   );
 
+  const totalSelectItems = cart.reduce((acc, curr) => {
+    if(curr.is_check){
+      return acc+1
+    }
+      return acc;
+    }, 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -84,8 +101,10 @@ export function CartProvider({ children }) {
         removeFromCart,
         updateQuantity,
         clearCart,
+        updateSelected,
         totalItems,
-        totalPrice
+        totalPrice,
+        totalSelectItems
       }}
     >
       {children}

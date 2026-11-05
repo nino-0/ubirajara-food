@@ -13,10 +13,20 @@ function NavBar ({totalItemsHandBag }){
   };  
   const handleClickProduct = () => {
 
-    navigate('/main');
+    navigate('/');
   };  
   return (
-    <header className="fixed bottom-0 left-0 w-full h-16 bg-gray-900 text-white flex justify-around items-center z-50 shadow-md">
+    <header className="fixed bottom-0 left-0 w-full h-16 bg-gray-900 text-white flex justify-around items-center z-50 shadow-md">  
+    <button 
+    type="button"
+    onClick={() => handleClickProduct()}
+    className="flex-1 flex flex-col justify-center items-center h-full transition-all duration-200 active:scale-95 active:bg-gray-800 focus:outline-none"
+    >
+    <div className="flex-1 flex flex-col justify-center items-center h-full cursor-pointer hover:bg-green-600 transition-colors">
+        <TableProperties />
+        <span className="font-medium text-sm">Produtos</span>
+      </div>
+    </button>
     <button 
     type="button"
     onClick={() =>handleClickHandBag()}
@@ -31,17 +41,6 @@ function NavBar ({totalItemsHandBag }){
         }
           
         <span className="font-medium text-sm">Sacola</span>
-      </div>
-    </button>
-  
-    <button 
-    type="button"
-    onClick={() => handleClickProduct()}
-    className="flex-1 flex flex-col justify-center items-center h-full transition-all duration-200 active:scale-95 active:bg-gray-800 focus:outline-none"
-    >
-    <div className="flex-1 flex flex-col justify-center items-center h-full cursor-pointer hover:bg-green-600 transition-colors">
-        <TableProperties />
-        <span className="font-medium text-sm">Produtos</span>
       </div>
     </button>
   </header>

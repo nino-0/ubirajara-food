@@ -8,7 +8,7 @@ function Success() {
   useEffect(() => {
     // Redireciona após 3 segundos (3000ms)
     const timer = setTimeout(() => {
-      navigate('/main'); 
+      navigate('/'); 
     }, 3000);
 
     // Limpa o temporizador se o componente for desmontado antes
